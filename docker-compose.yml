@@ -1,0 +1,30 @@
+version: "3.3"
+
+services:
+  front:
+    image: htmlprogrammer2001/trackteacherfront
+    restart: always
+    container_name: front
+    ports:
+      - 80:80
+    links:
+      - back
+
+  back:
+    image: htmlprogrammer2001/trackteacherback
+    restart: always
+    container_name: back
+    env_file:
+      - .env
+    ports:
+      - 81:80
+
+  mariadb:
+    image: mariadb:10.4
+    restart: always
+    container_name: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=app
+    ports:
+      - 3306:3306
